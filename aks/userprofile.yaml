@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: userprofile
+  name: userprofile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userprofile
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      containers:
+      - image: registryrxt3043.azurecr.io/team1/userprofile:1.0
+        name: userprofile
+        env:
+        - name: SQL_USER
+          value: "sqladminrXt3043"
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: sqlpassword
+        - name: SQL_SERVER
+          value: "sqlserverrxt3043.database.windows.net"

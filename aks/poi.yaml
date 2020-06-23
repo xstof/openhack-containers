@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  labels:
+    run: poi
+  name: poi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: poi  
+  template:
+    metadata:      
+      labels:
+        run: poi
+    spec:
+      containers:
+      - image: registryrxt3043.azurecr.io/team1/poi:1.0
+        name: poi
+        env:
+        - name: SQL_USER
+          value: "sqladminrXt3043"
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: sqlpassword
+        - name: SQL_SERVER
+          value: "sqlserverrxt3043.database.windows.net"

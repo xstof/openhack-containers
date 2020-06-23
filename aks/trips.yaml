@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: trips
+  name: trips
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trips
+  template:
+    metadata:
+      labels:
+        app: trips
+    spec:
+      containers:
+      - image: registryrxt3043.azurecr.io/team1/trips:1.0
+        name: trips
+        env:
+        - name: SQL_USER
+          value: "sqladminrXt3043"
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: sqlpassword
+        - name: SQL_SERVER
+          value: "sqlserverrxt3043.database.windows.net"
+        - name: DEBUG_LOGGING
+          value: "yes"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trips-service
+spec:
+  selector:
+    app: trips
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
