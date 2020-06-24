@@ -12,4 +12,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-    name: secrets 
+    name: secrets
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress
