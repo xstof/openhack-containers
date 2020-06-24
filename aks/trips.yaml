@@ -18,18 +18,28 @@ spec:
       containers:
       - image: registryrxt3043.azurecr.io/team1/trips:1.0
         name: trips
+        volumeMounts:
+          - mountPath: /secrets
+            name: secrets-store-inline
         env:
         - name: SQL_USER
           value: "sqladminrXt3043"
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-user-pass
-              key: sqlpassword
+        # - name: SQL_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: db-user-pass
+        #       key: sqlpassword
         - name: SQL_SERVER
           value: "sqlserverrxt3043.database.windows.net"
         - name: DEBUG_LOGGING
           value: "yes"
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kvname"
 ---
 apiVersion: v1
 kind: Service
