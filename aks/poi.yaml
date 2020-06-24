@@ -3,6 +3,7 @@ kind: Deployment
 metadata:  
   labels:
     run: poi
+  namespace: api
   name: poi
 spec:
   replicas: 1

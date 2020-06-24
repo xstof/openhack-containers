@@ -4,6 +4,7 @@ metadata:
   labels:
     app: tripviewer
   name: tripviewer-service
+  namespace: web
 spec:
   ports:
   - port: 80

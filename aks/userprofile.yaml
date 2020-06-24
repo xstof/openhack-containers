@@ -4,6 +4,7 @@ metadata:
   labels:
     app: userprofile
   name: userprofile
+  namespace: api
 spec:
   replicas: 1
   selector:
