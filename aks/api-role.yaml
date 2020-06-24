@@ -1,0 +1,69 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: team1-viewer
+rules:
+- apiGroups: [""]
+  resources: ["*"]
+  verbs: ["get", "list", "watch"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: team1-contributor
+rules:
+- apiGroups: [""]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: webdevs-apireader
+  namespace: api
+subjects:
+- kind: Group
+  name: 895f7c21-28e7-4056-bf71-7e8ada5142eb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: team1-viewer
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: webdevs-webeditor
+  namespace: web
+subjects:
+- kind: Group
+  name: 895f7c21-28e7-4056-bf71-7e8ada5142eb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: apidevs-webviewer
+  namespace: web
+subjects:
+- kind: Group
+  name: c92f26e6-2d40-4ef8-ade4-26a8ed3de289
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: team1-viewer
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: apidevs-apieditor
+  namespace: api
+subjects:
+- kind: Group
+  name: c92f26e6-2d40-4ef8-ade4-26a8ed3de289
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
