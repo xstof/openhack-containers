@@ -20,8 +20,8 @@ spec:
         name: tripviewer
         env:
         - name: USERPROFILE_API_ENDPOINT
-          value: "http://userprofile"
+          value: "http://userprofile.api.svc.cluster.local"
         - name: TRIPS_API_ENDPOINT
-          value: "http://trips-service"
+          value: "http://trips-service.api.svc.cluster.local"
         - name: BING_MAPS_KEY
           value: "sqlserverrxt3043.database.windows.net"
