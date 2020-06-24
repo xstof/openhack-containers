@@ -34,3 +34,16 @@ spec:
           readOnly: true
           volumeAttributes:
             secretProviderClass: "azure-kvname"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poi-service
+  namespace: api
+spec:
+  selector:
+    run: poi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
