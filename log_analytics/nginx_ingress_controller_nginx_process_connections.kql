@@ -1,0 +1,6 @@
+InsightsMetrics
+| where Name == 'nginx_ingress_controller_nginx_process_connections'
+| where TimeGenerated > ago(2h)
+| extend State=tostring(parse_json(Tags).state)
+| summarize avg(Val) by bin(TimeGenerated, 1m), State
+| render timechart 
