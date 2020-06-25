@@ -1,0 +1,22 @@
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+   name: allow-tcp-80
+   namespace: api
+spec:
+   selector: app == 'tripviewer'
+   types:
+   - Ingress
+   - Egress
+   ingress:
+   - action: Allow
+     metadata:
+       annotations:
+         from: team1-aks-ingress-nginx-ingress
+         to: tripviewer
+     protocol: TCP
+     source:
+       selector: app == 'team1-aks-ingress-nginx-ingress'
+         #- action: Allow
+   egress:
+   - action: Allow

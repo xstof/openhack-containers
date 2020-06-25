@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tripviewer
+  namespace: api
+  name: tripviewer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tripviewer
+  template:
+    metadata:
+      labels:
+        app: tripviewer
+    spec:
+      containers:
+      - image: registryrxt3043.azurecr.io/team1/tripviewer:1.0
+        name: tripviewer
+        env:
+        - name: USERPROFILE_API_ENDPOINT
+          value: "http://userprofile.api.svc.cluster.local"
+        - name: TRIPS_API_ENDPOINT
+          value: "http://trips-service.api.svc.cluster.local"
+        - name: BING_MAPS_KEY
+          value: "sqlserverrxt3043.database.windows.net"

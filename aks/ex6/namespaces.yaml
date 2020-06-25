@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web
+  labels:
+    type: web
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: api
+    labels:
+      type: api
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: secrets
+    labels:
+      type: secrets
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress
+  labels:
+    type: ingress
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: insurance
+  labels:
+    type: insurance

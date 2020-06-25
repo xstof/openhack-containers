@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  labels:
+    run: user-java
+  name: user-java
+  namespace: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: user-java  
+  template:
+    metadata:      
+      labels:
+        run: user-java
+    spec:
+      containers:
+      - image: registryrxt3043.azurecr.io/team1/user-java:1.0
+        name: user-java
+        env:
+        - name: SQL_USER
+          value: "sqladminrXt3043"
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: sqlpassword
+        - name: SQL_SERVER
+          value: "sqlserverrxt3043.database.windows.net"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-java-service
+  namespace: api
+spec:
+  selector:
+    run: user-java
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
